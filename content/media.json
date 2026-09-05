@@ -1,0 +1,68 @@
+{
+  "pink-celebration": [
+    {
+      "title": "Get the Party Started - Raise Your Glass (medley)",
+      "src": "/audio/pink-celebration-1.mp3",
+      "duration": 325
+    },
+    {
+      "title": "Glitter in the Air",
+      "src": "/audio/pink-celebration-2.mp3",
+      "duration": 276
+    }
+  ],
+  "the-songs-of-coldplay": [
+    {
+      "title": "Shiver",
+      "src": "/audio/the-songs-of-coldplay-1.mp3",
+      "duration": 275
+    }
+  ],
+  "dreams-in-fragments": [
+    {
+      "title": "Meditation",
+      "src": "/audio/dreams-in-fragments-1.mp3",
+      "duration": 184
+    },
+    {
+      "title": "White Silence",
+      "src": "/audio/dreams-in-fragments-2.mp3",
+      "duration": 281
+    },
+    {
+      "title": "Desert Monument Valley",
+      "src": "/audio/dreams-in-fragments-3.mp3",
+      "duration": 286
+    },
+    {
+      "title": "Neon City",
+      "src": "/audio/dreams-in-fragments-4.mp3",
+      "duration": 190
+    },
+    {
+      "title": "Silence or Scream",
+      "src": "/audio/dreams-in-fragments-5.mp3",
+      "duration": 229
+    },
+    {
+      "title": "Tornado’s Mystery",
+      "src": "/audio/dreams-in-fragments-6.mp3",
+      "duration": 229
+    },
+    {
+      "title": "Traveller’s Self-Reflection",
+      "src": "/audio/dreams-in-fragments-7.mp3",
+      "duration": 283
+    },
+    {
+      "title": "Dialogue: Outside the World",
+      "src": "/audio/dreams-in-fragments-8.mp3",
+      "duration": 211
+    },
+    {
+      "title": "Breaking All the Illusions",
+      "src": "/audio/dreams-in-fragments-9.mp3",
+      "duration": 224
+    }
+  ]
+}
