@@ -1,5 +1,6 @@
 /* oxlint-disable next/no-img-element -- Local images are resized and compressed ahead of deployment; no runtime image service is required. */
 import type { CSSProperties, ReactNode } from 'react';
+import { asset } from '@/lib/paths';
 export function Scene({
   image,
   children,
@@ -22,7 +23,7 @@ export function Scene({
     >
       <img
         className="scene-image"
-        src={image}
+        src={asset(image)}
         alt=""
         style={{ objectPosition: position }}
         loading={priority ? 'eager' : 'lazy'}

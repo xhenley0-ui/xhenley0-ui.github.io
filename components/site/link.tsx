@@ -6,5 +6,9 @@ export default function Link({
   children,
   ...props
 }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
-  return <a href={asset(href)} {...props}>{children}</a>;
+  return (
+    <a href={asset(href)} {...props}>
+      {children}
+    </a>
+  );
 }

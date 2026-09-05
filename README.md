@@ -36,11 +36,9 @@ The static website is generated in `dist/client/`. Never upload `dist/server/` t
 
 ### Add a performance / 添加演出视频
 
-Add an object matching the `Performance` interface to `content/performances.ts`. Supply a unique `id`, English/Chinese title, category, venue, a `src` URL, and a poster path. Use a local MP4 (`/video/concert.mp4`) or an HTTPS HLS stream (`.m3u8`). Put the poster under `public/images/`. `projectSlug` optionally links the video to a portfolio project. The Performance page updates automatically.
+The Performance page is intentionally empty until new concert recordings are ready. Add an object matching the `Performance` interface to `content/performances.ts`, then render the collection in `app/performance/page.tsx`. The two existing conducting videos remain attached to their original P!NK and Coldplay project detail pages through `content/projects.ts`.
 
-目前的两个视频是原网站已有的 P!NK 与 Coldplay 指挥片段。新增钢琴演奏、室内乐或其他演出时，在同一个数据文件中增加条目即可；不需要复制页面。
-
-The two existing conducting videos still stream from Squarespace. Migrate those streams to your own MP4 or video host before cancelling Squarespace. Their source URLs are explicit in `content/performances.ts`. The original recordings include no supplied captions; add reviewed caption tracks when available. New photos are used with layout cropping and optimized JPEG copies; original files are unchanged.
+Performance 页面目前按设计保持为空。之后上传演出视频时，在 `content/performances.ts` 中添加数据，并在 `app/performance/page.tsx` 中启用列表。原网站已有的两段指挥视频仍保留在 P!NK 与 Coldplay 的作品详情页。
 
 ### Add a project / 添加作品
 
@@ -73,6 +71,6 @@ This is a GitHub **user site**, so `SITE_BASE_PATH` is empty. If moving to a pro
 
 ## Design
 
-A midnight-blue, starry visual direction based on the original personal website. Home is a standalone full-screen performance photograph with centered name and a portfolio link. About, Portfolio, and Performance are separate pages. Portfolio recreates the original three square artworks with 200 ms hover/focus overlay fades. The two original blue background images overlap with gradient masks inside one continuous surface, fading to the common footer color. Touch devices keep titles visible; reduced-motion preferences disable transitions. About and Performance use independent photographs and midnight-blue color blocks. Home does not repeat category contents.
+A midnight-blue, starry visual direction based on the original personal website. Home starts with the full-screen performance photograph, then continues into the Dreams in Fragments feature and a concise About section. About, Portfolio, and Performance remain separate pages. Portfolio recreates the original three square artworks with 200 ms hover/focus overlay fades. Performance is an empty star-field page until new recordings are supplied. The original photographic contact footer appears on every page.
 
 All personal content and media come from Yuheng Zhu's supplied material or the original portfolio. No reference-site photos or biographical content were copied. The unmodified generated UI catalog and its helper hook are excluded from application lint checks.
