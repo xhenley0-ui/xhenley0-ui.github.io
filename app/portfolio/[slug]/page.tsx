@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { projects, getProject } from '@/content/projects';
 import { projectTranslations } from '@/content/translations';
 import { T } from '@/components/site/language';
-import { AudioTrack } from '@/components/site/media-player';
+import { AudioTrack, VideoPlayer } from '@/components/site/media-player';
 import { asset } from '@/lib/paths';
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -102,13 +102,16 @@ export default async function ProjectPage({ params }: Props) {
               </section>
             ))}
             {p.video && (
-              <Link
-                href="/performance/"
-                className="text-link"
-                style={{ marginTop: 40 }}
-              >
-                <T en="Watch the conducting performance" zh="观看指挥现场" /> ↗
-              </Link>
+              <section className="arrangement conducting-section">
+                <h2>
+                  <T en="Conducting" zh="指挥现场" />
+                </h2>
+                <VideoPlayer
+                  src={p.video}
+                  title={`${p.title} — Conducting`}
+                  poster={p.background}
+                />
+              </section>
             )}
           </>
         ) : (

@@ -4,6 +4,11 @@ export const biographyZh = [
   '受到神秘主义、碎片化梦境与内在意识状态的启发，他将作曲视为构建感知空间的过程，以和声、音色与情感结构塑造听觉体验。',
   '近期项目包括概念专辑《碎梦》（Dreams in Fragments），以及 Berklee Presents、Singers Showcase、American Songbook 和 CWP 音乐会等大型制作。',
 ];
+export const homeBioZh = [
+  '就读于伯克利音乐学院的作曲者、编曲者与音乐制作人。',
+  '创作根植于亚洲视角，也受到全球音乐文化影响，从古典到金属，穿行于不同的声音世界。',
+  '以声音与色彩的融合为引导，并受到神秘主义启发，将音乐作为对感知、结构与不可见世界的探索。',
+];
 export interface ProjectTranslation {
   title: string;
   subtitle?: string;

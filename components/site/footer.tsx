@@ -1,39 +1,55 @@
+/* oxlint-disable next/no-img-element -- Local SVG icons are part of the site design. */
 import { site } from '@/content/site';
+import { asset } from '@/lib/paths';
 import { T } from './language';
+import { Scene } from './scene';
+
 export function Footer() {
+  const socials = [
+    { name: 'YouTube', href: site.social.youtube, icon: 'youtube' },
+    { name: 'Instagram', href: site.social.instagram, icon: 'instagram' },
+    { name: 'Facebook', href: site.social.facebook, icon: 'facebook' },
+  ];
+
   return (
-    <footer className="site-footer">
-      <div className="footer-upper">
-        <div>
-          <p className="eyebrow">
-            <T en="LET’S CONNECT" zh="保持联系" />
-          </p>
-          <a className="contact-title" href={`mailto:${site.email}`}>
-            <T en="Make something resonate." zh="让音乐，产生共鸣。" />{' '}
-            <span>↗</span>
-          </a>
+    <footer>
+      <Scene image="/images/footer.jpg" className="site-footer" shade={0.5}>
+        <div className="footer-top">
+          <div>
+            <p className="footer-name">{site.name}</p>
+            <p>
+              <T
+                en="Composer · Arranger · Producer"
+                zh="作曲 · 编曲 · 音乐制作"
+              />
+            </p>
+            <a className="footer-email" href={`mailto:${site.email}`}>
+              {site.email}
+            </a>
+          </div>
+          <div className="socials">
+            {socials.map(({ name, href, icon }) => (
+              <a
+                key={name}
+                href={href}
+                aria-label={name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={asset(`/images/${icon}.svg`)}
+                  width={42}
+                  height={42}
+                  alt=""
+                />
+              </a>
+            ))}
+          </div>
         </div>
-        <a className="email-link" href={`mailto:${site.email}`}>
-          {site.email}
-        </a>
-      </div>
-      <div className="footer-lower">
-        <p>© {new Date().getFullYear()} Yuheng Zhu</p>
-        <div className="social-links">
-          <a href={site.social.youtube} target="_blank" rel="noreferrer">
-            YouTube ↗
-          </a>
-          <a href={site.social.instagram} target="_blank" rel="noreferrer">
-            Instagram ↗
-          </a>
-          <a href={site.social.facebook} target="_blank" rel="noreferrer">
-            Facebook ↗
-          </a>
-        </div>
-        <a href="#main">
-          <T en="Back to top ↑" zh="回到顶部 ↑" />
-        </a>
-      </div>
+        <p className="copyright">
+          © {new Date().getFullYear()} {site.name}
+        </p>
+      </Scene>
     </footer>
   );
 }
