@@ -1,44 +1,78 @@
-# Yuheng Zhu — personal website
+# Yuheng Zhu — portfolio & performance
 
-A responsive recreation of https://yuhengzhu.squarespace.com, built with React 19, strict TypeScript, and Vinext (Vite with the Next.js App Router API). Source content was migrated on September 5, 2026.
+Bilingual personal website: **https://xhenley0-ui.github.io/**
 
-## Development
+React 19 + strict TypeScript, using Vinext/Vite and Next.js App Router conventions. The site exports static HTML for GitHub Pages. No server, Squarespace account, or database is required to run the pages.
 
-Install Node.js 22.13+ and pnpm, then run:
+## Develop
+
+Use Node.js 24 and pnpm 11.19.0:
 
 ```sh
 pnpm install
 pnpm dev
+pnpm exec tsc --noEmit
+pnpm lint
+pnpm build
 ```
 
-Open the URL printed by the server. Production: `pnpm build`. Type checking: `pnpm exec tsc --noEmit`. Lint: `pnpm lint`.
+The static website is generated in `dist/client/`. Never upload `dist/server/` to GitHub Pages. `.nojekyll` is added by the deployment workflow.
 
-## Where to edit
+## Edit content / 修改内容
 
-| Change                                                    | File                  |
-| --------------------------------------------------------- | --------------------- |
-| Name, biography, contact, navigation, social links        | `content/site.ts`     |
-| Projects, descriptions, artwork, credits, video streams   | `content/projects.ts` |
-| Audio titles, durations, and file paths                   | `content/media.json`  |
-| Colors, fonts, spacing, responsive layouts                | `app/globals.css`     |
-| Header, footer, background sections, audio/video behavior | `components/site/`    |
-| Home, About, Portfolio layouts                            | `app/`                |
-| Images                                                    | `public/images/`      |
+| What / 内容                                               | File / 文件                    |
+| --------------------------------------------------------- | ------------------------------ |
+| English biography, email, social accounts                 | `content/site.ts`              |
+| Chinese biography, project copy, album track translations | `content/translations.ts`      |
+| Project descriptions, artwork, audio lists, credits       | `content/projects.ts`          |
+| **Performance video entries / 演出视频**                  | **`content/performances.ts`**  |
+| Local audio paths and titles                              | `content/media.json`           |
+| EN / 中文 switch and remembered preference                | `components/site/language.tsx` |
+| Colors, typography, spacing, responsive composition       | `app/globals.css`              |
+| Shared header, footer, media players                      | `components/site/`             |
+| Home, About, Portfolio, Performance, project layouts      | `app/`                         |
+| Local photographs and artwork                             | `public/images/`               |
+| All 12 local audio recordings                             | `public/audio/`                |
 
-### Add a project
+### Add a performance / 添加演出视频
 
-Add an object matching the `Project` interface to `projects` in `content/projects.ts`. Choose a unique URL-safe slug, add images under `public/images/`, and supply the title, description paragraphs, tracks, and credits. The portfolio grid, detail route, page metadata, and previous/next links update automatically. No copied page template is needed. A track accepts an MP3 URL or a local path such as `/audio/my-piece.mp3`. Videos accept MP4 or HLS `.m3u8` URLs.
+Add an object matching the `Performance` interface to `content/performances.ts`. Supply a unique `id`, English/Chinese title, category, venue, a `src` URL, and a poster path. Use a local MP4 (`/video/concert.mp4`) or an HTTPS HLS stream (`.m3u8`). Put the poster under `public/images/`. `projectSlug` optionally links the video to a portfolio project. The Performance page updates automatically.
 
-### Architecture
+目前的两个视频是原网站已有的 P!NK 与 Coldplay 指挥片段。新增钢琴演奏、室内乐或其他演出时，在同一个数据文件中增加条目即可；不需要复制页面。
 
-Server-rendered route components keep public content and metadata available without waiting for JavaScript. Only mobile navigation and media controls require client components. Base UI/Shadcn provides an accessible mobile navigation sheet. Native audio controls support seeking, volume, and keyboard interaction; hls.js supports the original video streams on browsers without native HLS. Starting another player pauses the previous recording.
+The two existing conducting videos still stream from Squarespace. Migrate those streams to your own MP4 or video host before cancelling Squarespace. Their source URLs are explicit in `content/performances.ts`. The original recordings include no supplied captions; add reviewed caption tracks when available. New photos are used with layout cropping and optimized JPEG copies; original files are unchanged.
 
-The project uses standard React components and Next.js App Router conventions, with Vinext for the Cloudflare-compatible build. No Squarespace account or SDK is needed for editing. Images are stored locally; original asset URLs are recorded in `content/asset-sources.json`. All 12 audio recordings are stored locally in `public/audio/`, with paths listed in `content/media.json`; the optional `scripts/mirror-audio.mjs` migration utility copies remote audio locally. Conducting videos remain on the original Squarespace CDN and must be migrated to your own video storage before cancelling Squarespace. Their full URLs are in `content/projects.ts`.
+### Add a project / 添加作品
 
-Keep original media rights and credits with any migration. This recreation retains the original copy and visual direction; responsive layouts and media controls are implemented anew rather than copying Squarespace's generated layout engine and image effects.
+Add a `Project` in `content/projects.ts` and a matching Chinese entry in `content/translations.ts`. Use a unique slug. Add audio references in `content/media.json` if needed. The portfolio, static detail route, metadata, and previous/next navigation update automatically. Song and event names may retain their original language.
 
-## Deployment
+### Language behavior
 
-`pnpm build` creates a Cloudflare Workers-compatible site in `dist/`. `.openai/hosting.json` links this checkout to the private Sites preview. The same source can be adapted for another host that supports Vinext/Cloudflare Workers. Review sharing settings before making the site public. No contact form or analytics service is configured; the contact link opens the visitor's email app.
+The server exports English HTML. After hydration, EN / 中文 updates the interface, descriptions, biography, and album titles. The preference is remembered in local storage, synchronizes across tabs, and updates the document language for assistive technology. Switching also works if browser storage is unavailable.
 
-The lint configuration excludes the unmodified generated UI catalog and its helper hook. Original recordings do not include caption files; supply reviewed captions when available.
+## Version management with gh
+
+Repository: https://github.com/xhenley0-ui/xhenley0-ui.github.io
+
+```sh
+gh repo clone xhenley0-ui/xhenley0-ui.github.io
+cd xhenley0-ui.github.io
+git switch -c feature/your-change
+# edit, then run checks and build
+git add .
+git commit -m "Describe the change"
+git push -u origin feature/your-change
+gh pr create --base main --fill
+# Merge after reviewing the change:
+gh pr merge --merge --delete-branch
+```
+
+`.github/workflows/pages.yml` checks types, lints, builds, and deploys every push to `main`. View progress with `gh run list` and `gh run watch`. Tagged releases record major versions; use a new commit to revert a change and publish the rollback. Keep credentials out of the repository.
+
+This is a GitHub **user site**, so `SITE_BASE_PATH` is empty. If moving to a project repository, set `SITE_BASE_PATH=/repository-name` during both local preview and build. Application image/audio paths use `lib/paths.ts`; native route links also use the base-path helper.
+
+## Design
+
+A midnight-blue, starry visual direction based on the original personal website. Home is a standalone full-screen performance photograph with centered name and a portfolio link. About, Portfolio, and Performance are separate pages. Portfolio recreates the original three square artworks with 200 ms hover/focus overlay fades. The two original blue background images overlap with gradient masks inside one continuous surface, fading to the common footer color. Touch devices keep titles visible; reduced-motion preferences disable transitions. About and Performance use independent photographs and midnight-blue color blocks. Home does not repeat category contents.
+
+All personal content and media come from Yuheng Zhu's supplied material or the original portfolio. No reference-site photos or biographical content were copied. The unmodified generated UI catalog and its helper hook are excluded from application lint checks.

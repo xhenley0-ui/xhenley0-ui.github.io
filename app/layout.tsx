@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/site/header';
 import { Footer } from '@/components/site/footer';
+import { LanguageProvider } from '@/components/site/language';
 import { site } from '@/content/site';
+import { asset } from '@/lib/paths';
 import './globals.css';
 export const metadata: Metadata = {
   title: { default: site.name, template: `%s — ${site.name}` },
   description: site.description,
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: asset('/favicon.svg') },
 };
 export default function RootLayout({
   children,
@@ -16,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

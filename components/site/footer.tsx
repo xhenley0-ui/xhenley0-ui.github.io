@@ -1,53 +1,39 @@
-/* oxlint-disable next/no-img-element -- Local images are resized and compressed ahead of deployment; no runtime image service is required. */
 import { site } from '@/content/site';
-import { Scene } from './scene';
+import { T } from './language';
 export function Footer() {
   return (
-    <footer>
-      <Scene image="/images/footer.jpg" className="site-footer" shade={0.5}>
-        <div className="footer-top">
-          <div>
-            <p className="footer-name">{site.name}</p>
-            <p>{site.roles}</p>
-            <a className="footer-email" href={`mailto:${site.email}`}>
-              {site.email}
-            </a>
-          </div>
-          <div className="socials">
-            {[
-              { name: 'YouTube', href: site.social.youtube, icon: 'youtube' },
-              {
-                name: 'Instagram',
-                href: site.social.instagram,
-                icon: 'instagram',
-              },
-              {
-                name: 'Facebook',
-                href: site.social.facebook,
-                icon: 'facebook',
-              },
-            ].map(({ name, href, icon }) => (
-              <a
-                key={name}
-                href={href}
-                aria-label={name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={`/images/${icon}.svg`}
-                  width={42}
-                  height={42}
-                  alt=""
-                />
-              </a>
-            ))}
-          </div>
+    <footer className="site-footer">
+      <div className="footer-upper">
+        <div>
+          <p className="eyebrow">
+            <T en="LET’S CONNECT" zh="保持联系" />
+          </p>
+          <a className="contact-title" href={`mailto:${site.email}`}>
+            <T en="Make something resonate." zh="让音乐，产生共鸣。" />{' '}
+            <span>↗</span>
+          </a>
         </div>
-        <p className="copyright">
-          © {new Date().getFullYear()} {site.name}
-        </p>
-      </Scene>
+        <a className="email-link" href={`mailto:${site.email}`}>
+          {site.email}
+        </a>
+      </div>
+      <div className="footer-lower">
+        <p>© {new Date().getFullYear()} Yuheng Zhu</p>
+        <div className="social-links">
+          <a href={site.social.youtube} target="_blank" rel="noreferrer">
+            YouTube ↗
+          </a>
+          <a href={site.social.instagram} target="_blank" rel="noreferrer">
+            Instagram ↗
+          </a>
+          <a href={site.social.facebook} target="_blank" rel="noreferrer">
+            Facebook ↗
+          </a>
+        </div>
+        <a href="#main">
+          <T en="Back to top ↑" zh="回到顶部 ↑" />
+        </a>
+      </div>
     </footer>
   );
 }
